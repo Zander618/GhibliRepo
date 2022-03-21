@@ -2,6 +2,9 @@
 document.addEventListener("DOMContentLoaded", movieCard);
 
 
+//store fetch data outside of the functions. to lessen fetchs
+
+
 //movieCard iterates through an API of Studio Ghibli movies and displays them in individual cards
 let card = document.getElementById("movie-cards");
 
@@ -40,6 +43,7 @@ function movieCard() {
 // This function changes the display of the DOM content load to "none" and reverts back to "block" when the back button is pressed
 
 let fullMovieCard = document.getElementById("single-card")
+let cardContents = document.createElement("h4");
 
 function singleMovieCard(e){
   fetch("https://ghibliapi.herokuapp.com/films", {
@@ -53,7 +57,7 @@ function singleMovieCard(e){
       for (let movie of data)
       if (movie.title === e.path[1].firstChild.data){
         fullMovieCard.style.display = 'block'
-        let cardContents = document.createElement("h4");
+        
         let cardYear = document.createElement("h4");
         let cardImage = document.createElement("img");
         let button = document.createElement("button");
@@ -80,8 +84,10 @@ card.style.display = "none"
 }
 
 function cardsOnOff(){
+  //full page render
   card.style.display = "block"
-  fullMovieCard.style.display = "none"
+  //single card
+  fullMovieCard.removeChild(cardContents)
 }
 
 // An extra function to choose a movie at random to be display on the banner
