@@ -1,5 +1,6 @@
 .movie-cards{
   margin: auto;
+  width: 50%;
 }
 
 .movie-card {
@@ -33,10 +34,13 @@
 }
 
 #header {
-  padding: 60px;
+  padding: .05px;
   text-align: center;
   background: #1abc9c;
   color: white;
-  font-size: 100px;
   font-family: 'Calibri';
+}
+
+#main-title{
+  font-size: 100px;
 }
