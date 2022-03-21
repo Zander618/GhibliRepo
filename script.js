@@ -1,5 +1,8 @@
+//DOM content loads and displays all movie cards
 document.addEventListener("DOMContentLoaded", movieCard);
 
+
+//movieCard iterates through an API of Studio Ghibli movies and displays them in individual cards
 let card = document.getElementById("movie-cards");
 
 function movieCard() {
@@ -13,6 +16,7 @@ function movieCard() {
     .then((data) => {
       console.log(data);
       for (const movie of data) {
+        card.style.display = 'block'
         let cardContents = document.createElement("h4");
         let cardYear = document.createElement("h4");
         let cardImage = document.createElement("img");
@@ -25,44 +29,62 @@ function movieCard() {
         button.textContent = "Click for more information";
         cardContents.append(cardImage, cardYear, button);
         card.appendChild(cardContents);
-        button.addEventListener('click', test) 
+        button.addEventListener('click', singleMovieCard) 
       }  
-      
+      fullMovieCard.style.display = 'none'
     });
 }
 
 
-function test(e){
-  console.log(e.path[1].firstChild.data)
+//Single movie is a function triggered by the "click more information" button on Movie Cards
+// This function changes the display of the DOM content load to "none" and reverts back to "block" when the back button is pressed
+
+let fullMovieCard = document.getElementById("single-card")
+
+function singleMovieCard(e){
+  fetch("https://ghibliapi.herokuapp.com/films", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => resp.json())
+    .then((data) =>{
+      for (let movie of data)
+      if (movie.title === e.path[1].firstChild.data){
+        fullMovieCard.style.display = 'block'
+        let cardContents = document.createElement("h4");
+        let cardYear = document.createElement("h4");
+        let cardImage = document.createElement("img");
+        let button = document.createElement("button");
+        let p = document.createElement("p")
+        let p2 = document.createElement("p")
+        let p3 = document.createElement("p")
+        let p4 = document.createElement("p")
+        cardImage.src = movie.movie_banner;
+        cardImage.className = "full-size-image";
+        cardContents.textContent = movie.title;
+        cardYear.textContent = movie.release_date;
+        p4.textContent = `Run Time ${movie.running_time}mins.`
+        p3.textContent = `Rotten Tomato Score: ${movie.rt_score}%`
+        p2.textContent = `Director: ${movie.director}`
+        p.textContent = movie.description
+        cardContents.className = "full-movie-card";
+        button.textContent = "back";
+        cardContents.append(cardImage, cardYear, p, p2, p3, p4, button);
+        fullMovieCard.appendChild(cardContents);
+        button.addEventListener('click', cardsOnOff) 
+      }
+    })
+card.style.display = "none"
 }
 
+function cardsOnOff(){
+  card.style.display = "block"
+  fullMovieCard.style.display = "none"
+}
 
-// function singleMovie(){
-//   fetch("https://ghibliapi.herokuapp.com/films", {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((resp) => resp.json())
-//     .then((data) => {
-//       console.log(data);
-//       for (const movie of data) {
-//         let cardContents = document.createElement("h4");
-//         let cardYear = document.createElement("h4");
-//         let cardImage = document.createElement("img");
-//         let button = document.createElement("button");
-//         cardImage.src = movie.image;
-//         cardImage.className = "movie-image";
-//         cardContents.textContent = movie.title;
-//         cardYear.textContent = movie.release_date;
-//         cardContents.className = "full-movie-card";
-//         button.textContent = "Click for more information";
-//         cardContents.append(cardImage, cardYear, button);
-//         card.appendChild(cardContents);
-//       }
-//     });
-// }
+// An extra function to choose a movie at random to be display on the banner
 
 const moviePickerButton = document.getElementById("picker")
 moviePickerButton.addEventListener('click', randomMoviePicker)
