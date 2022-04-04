@@ -1,56 +1,19 @@
-//DOM content loads and displays all movie cards. Needs timeOut in order to fetch before running the function.
-// let load = setTimeout(movieCard, 200);
+//DOM content loads and displays all movie cards.
+document.addEventListener("DOMContentLoaded", movieCard)
 
+//movieCard iterates through an API of Studio Ghibli movies and displays them in individual cards
 let card = document.getElementById("movie-cards");
 
-document.addEventListener(
-  "DOMContentLoaded", fetcher
-);
-
-function fetcher() {
+function movieCard() {
   fetch("https://ghibliapi.herokuapp.com/films", {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   })
     .then((resp) => resp.json())
     .then((data) => {
-      obj = data;
-      movieCard();
-    });
-}
-
-const alpha = document.getElementById("sorter")
-
-alpha.addEventListener("click", sortAlpha)
-
-function sortAlpha(){
-  const items = Array.from(document.getElementsByClassName("movie-card"))
-  const sortedCards = items.sort(function(a, b) {
-    const nameA = a.innerText.toUpperCase(); // ignore upper and lowercase
-    const nameB = b.innerText.toUpperCase(); // ignore upper and lowercase
-    if (nameA < nameB) {
-      return -1;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-  
-    // names must be equal
-    return 0;
-  });
-  card.innerHTML = ""
-  sortedCards.forEach(mcard => card.appendChild(mcard))
-}
-
-
-//store fetch data outside of the functions. to lessen fetches
-let obj;
-
-//movieCard iterates through an API of Studio Ghibli movies and displays them in individual cards
-
-
-function movieCard() {
+      console.log(data);
   for (const movie of obj) {
     card.style.display = "block";
     let cardContents = document.createElement("h4");
@@ -68,6 +31,7 @@ function movieCard() {
     button.addEventListener("click", singleMovieCard);
   }
   fullMovieCard.style.display = "none";
+  });
 }
 
 //Single movie is a function triggered by the "click more information" button on Movie Cards
@@ -77,6 +41,14 @@ let fullMovieCard = document.getElementById("single-card");
 let cardContents = document.createElement("h4");
 
 function singleMovieCard(e) {
+  fetch("https://ghibliapi.herokuapp.com/films", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => resp.json())
+    .then((data) =>{
   for (let movie of obj)
     if (movie.title === e.path[1].firstChild.data) {
       fullMovieCard.style.display = "block";
@@ -101,6 +73,7 @@ function singleMovieCard(e) {
       fullMovieCard.appendChild(cardContents);
       button.addEventListener("click", cardsOnOff);
     }
+  })
   card.style.display = "none";
 }
 
