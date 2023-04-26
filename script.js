@@ -47,6 +47,7 @@ function sortAlpha(){
 //store fetch data outside of the functions. to lessen fetches
 let obj;
 
+console.log(obj)
 //movieCard iterates through an API of Studio Ghibli movies and displays them in individual cards
 
 
