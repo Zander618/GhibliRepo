@@ -8,7 +8,7 @@ document.addEventListener(
 );
 
 function fetcher() {
-  fetch("https://studio-ghibli-films-api.herokuapp.com/", {
+  fetch("https://ghibliapi.herokuapp.com/films", {
     headers: {
       "Content-Type": "application/json",
     },
