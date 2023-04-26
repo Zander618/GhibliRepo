@@ -8,7 +8,7 @@ document.addEventListener(
 );
 
 function fetcher() {
-  fetch("https://ghibliapi.herokuapp.com/films", {
+  fetch("https://github.com/AniList/ApiV2-GraphQL-Docs", {
     headers: {
       "Content-Type": "application/json",
     },
