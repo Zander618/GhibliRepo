@@ -8,7 +8,7 @@ document.addEventListener(
 );
 
 function fetcher() {
-  fetch("https://github.com/AniList/ApiV2-GraphQL-Docs", {
+  fetch("https://pokeapi.co/api/v2/pokemon", {
     headers: {
       "Content-Type": "application/json",
     },
