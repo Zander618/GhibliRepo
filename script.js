@@ -7,7 +7,7 @@ document.addEventListener(
   "DOMContentLoaded", fetcher
 );
 
-let obj;
+
 
 function fetcher() {
   fetch("https://ghibliapi-hxye.onrender.com/films", {
@@ -18,6 +18,7 @@ function fetcher() {
     .then((resp) => resp.json())
     .then((data) => {
       obj = data;
+      console.log(data)
       movieCard();
     });
 }
@@ -47,7 +48,7 @@ function sortAlpha(){
 
 
 //store fetch data outside of the functions. to lessen fetches
-
+let obj;
 
 
 //movieCard iterates through an API of Studio Ghibli movies and displays them in individual cards
