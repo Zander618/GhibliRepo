@@ -7,8 +7,10 @@ document.addEventListener(
   "DOMContentLoaded", fetcher
 );
 
+let obj;
+
 function fetcher() {
-  fetch("https://pokeapi.co/api/v2/pokemon", {
+  fetch("https://ghibliapi-hxye.onrender.com/films", {
     headers: {
       "Content-Type": "application/json",
     },
@@ -45,9 +47,9 @@ function sortAlpha(){
 
 
 //store fetch data outside of the functions. to lessen fetches
-let obj;
 
-console.log(obj)
+
+
 //movieCard iterates through an API of Studio Ghibli movies and displays them in individual cards
 
 
@@ -58,9 +60,9 @@ function movieCard() {
     let cardYear = document.createElement("h4");
     let cardImage = document.createElement("img");
     let button = document.createElement("button");
-    cardImage.src = movie.image;
+    cardImage.src = movie.url;
     cardImage.className = "movie-image";
-    cardContents.textContent = movie.title;
+    cardContents.textContent = movie.name;
     cardYear.textContent = movie.release_date;
     cardContents.className = "movie-card";
     button.textContent = "Click for more information";
