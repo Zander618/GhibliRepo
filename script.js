@@ -61,12 +61,13 @@ function movieCard() {
     let cardYear = document.createElement("h4");
     let cardImage = document.createElement("img");
     let button = document.createElement("button");
-    cardImage.src = movie.url;
+    cardImage.src = movie.image;
     cardImage.className = "movie-image";
-    cardContents.textContent = movie.name;
+    cardContents.textContent = movie.title;
     cardYear.textContent = movie.release_date;
     cardContents.className = "movie-card";
     button.textContent = "Click for more information";
+    button.value = movie.title
     cardContents.append(cardImage, cardYear, button);
     card.appendChild(cardContents);
     button.addEventListener("click", singleMovieCard);
@@ -81,8 +82,9 @@ let fullMovieCard = document.getElementById("single-card");
 let cardContents = document.createElement("h4");
 
 function singleMovieCard(e) {
+  console.log(e.target.value)
   for (let movie of obj)
-    if (movie.title === e.path[1].firstChild.data) {
+    if (movie.title === e.target.value) {
       fullMovieCard.style.display = "block";
       let cardYear = document.createElement("h4");
       let cardImage = document.createElement("img");
